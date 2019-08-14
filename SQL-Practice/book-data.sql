@@ -29,48 +29,8 @@ VALUES
 ('Oblivion: Stories', 'David', 'Foster Wallace', 2004, 172, 329),
 ('Consider the Lobster', 'David', 'Foster Wallace', 2005, 92, 343);
 
-SELECT CONCAT(author_fname, ' ',  author_lname) AS 'Full Name' FROM books;
-
-SELECT CONCAT_WS(' - ', title, author_fname, author_lname) AS 'Book and Author' FROM books;
-
-SELECT CONCAT(SUBSTRING(title, 1, 10), '...') AS 'Short Title' FROM books;
-
-SELECT SUBSTRING(
-	REPLACE(title, 'e', '3'), 1, 10
-	AS 'L33t Cod3'
-);
-
-SELECT REVERSE(title) FROM books;
-
-SELECT CONCAT(author_fname, REVERSE(author_fname)) FROM books;
-
-SELECT CONCAT(author_lname, ' is ', CHAR_LENGTH(author_lname), ' chars long') FROM books;
-
-SELECT UPPER(title) FROM books;
-
-SELECT LOWER(CONCAT(author_lname, ' ', author_fname)) AS 'little names' FROM books; 
-
 INSERT INTO books
     (title, author_fname, author_lname, released_year, stock_quantity, pages)
     VALUES ('10% Happier', 'Dan', 'Harris', 2014, 29, 256), 
            ('fake_book', 'Freida', 'Harris', 2001, 287, 428),
            ('Lincoln In The Bardo', 'George', 'Saunders', 2017, 1000, 367);
-
-SELECT DISTINCT author_fname, author_lname FROM books;
-
-SELECT title FROM books ORDER BY author_lname DESC;
-
-SELECT released_year FROM books ORDER BY released_year;
-
-SELECT title, CONCAT(author_lname, ' ', author_fname), released_year FROM books ORDER BY 3;
-
-SELECT title FROM books LIMIT 6;
-
-SELECT * FROM books LIMIT 1;
-
-SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 10,1;
-
-SELECT title, author_fname FROM books WHERE author_fname LIKE '%da%';
-SELECT title, author_fname FROM books WHERE author_fname LIKE 'da%';
-
-SELECT title FROM books WHERE title LIKE '%the%';

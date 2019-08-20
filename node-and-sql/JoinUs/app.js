@@ -1,8 +1,13 @@
 const mysql = require('mysql')
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
 
-let connection = mysql.createConnection({
+app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + "/public"));
+
+const connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
 	database : 'legion'
@@ -10,11 +15,22 @@ let connection = mysql.createConnection({
 
 
 app.get("/", function(req, res){
-	var q = "SELECT COUNT(*) AS count FROM users";
+	let q = "SELECT COUNT(*) AS count FROM users";
 	connection.query(q, function(err, results){
 		if (err) throw err;
 		let count = results[0].count;
-		res.send("We have " + count + " users in our database.");	
+		res.render("root", {count: count});	
+	});
+});
+
+app.post("/register", function(req, res){
+	let person = {
+		email: req.body.email
+	};
+	
+	connection.query('INSERT INTO users SET ?', person, function(err, results){
+		if(err) throw err;
+		res.redirect("/");
 	});
 });
 
